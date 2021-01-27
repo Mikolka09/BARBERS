@@ -32,6 +32,7 @@ namespace Barbers
             dataSet = new DataSet();
             adapter.Fill(dataSet);
             dataGridView1.DataSource = dataSet.Tables[0];
+            dataGridView1.Columns["id"].ReadOnly = true;
             builder = new SqlCommandBuilder(adapter);
         }
 
@@ -50,6 +51,7 @@ namespace Barbers
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Close();
             }
         }
     }

@@ -46,6 +46,7 @@ namespace Barbers
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                Close();
             }
         }
 

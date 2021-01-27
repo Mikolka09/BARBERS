@@ -32,6 +32,7 @@ namespace Barbers
             this.buttonGender = new System.Windows.Forms.Button();
             this.buttonBarbers = new System.Windows.Forms.Button();
             this.buttonClients = new System.Windows.Forms.Button();
+            this.buttonClient = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonGender
@@ -67,11 +68,23 @@ namespace Barbers
             this.buttonClients.UseVisualStyleBackColor = true;
             this.buttonClients.Click += new System.EventHandler(this.buttonClients_Click);
             // 
+            // buttonClient
+            // 
+            this.buttonClient.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonClient.Location = new System.Drawing.Point(494, 42);
+            this.buttonClient.Name = "buttonClient";
+            this.buttonClient.Size = new System.Drawing.Size(93, 43);
+            this.buttonClient.TabIndex = 3;
+            this.buttonClient.Text = "Client";
+            this.buttonClient.UseVisualStyleBackColor = true;
+            this.buttonClient.Click += new System.EventHandler(this.buttonClient_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 173);
+            this.ClientSize = new System.Drawing.Size(618, 173);
+            this.Controls.Add(this.buttonClient);
             this.Controls.Add(this.buttonClients);
             this.Controls.Add(this.buttonBarbers);
             this.Controls.Add(this.buttonGender);
@@ -87,6 +100,7 @@ namespace Barbers
         private System.Windows.Forms.Button buttonGender;
         private System.Windows.Forms.Button buttonBarbers;
         private System.Windows.Forms.Button buttonClients;
+        private System.Windows.Forms.Button buttonClient;
     }
 }
 

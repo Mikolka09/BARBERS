@@ -15,6 +15,16 @@ namespace Barbers
     public partial class Form1 : Form
     {
         public SqlConnection connection;
+        public List<Gender> Genders;
+
+        public Gender GetGenderById(int id)
+        {
+            foreach (var item in Genders)
+            {
+                if (item.Id == id) return item;
+            }
+            return null;
+        }
 
         public Form1()
         {
@@ -29,6 +39,31 @@ namespace Barbers
                 connection.Open();
             }
             catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+                Close();
+            }
+
+            // ORM - Gender List
+            var cmd = new SqlCommand("SELECT G.id, G.name, G.description FROM Gender G", connection);
+            Genders = new List<Gender>();
+            try
+            {
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Genders.Add(
+                        new Gender()
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Description = reader.GetString(2)
+                        }
+                    );
+                }
+                reader.Close(); //С незакрытым reader блакируется connection
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 Close();
@@ -52,7 +87,21 @@ namespace Barbers
             ClientsForm clientsForm = new ClientsForm();
             clientsForm.ShowDialog(this);
         }
+
+        private void buttonClient_Click(object sender, EventArgs e)
+        {
+            ClientForm clientForm = new ClientForm();
+            clientForm.ShowDialog(this);
+        }
     }
+
+    public class Gender //ORM
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+    }
+
 }
 
 
