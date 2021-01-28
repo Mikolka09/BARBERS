@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace Barbers
 {
@@ -25,21 +26,7 @@ namespace Barbers
 
         private void ClientEditForm_Load(object sender, EventArgs e)
         {
-           
-            //client = (Owner as ClientForm).GetClientById();
-            //if (client != null)
-            //{
-            //    textBoxFIO.Text = client.Name;
-            //    textBoxEmail.Text = client.Email;
-            //    textBoxPhone.Text = client.Phone;
-            //}
-            //else
-            //{
-            //    textBoxFIO.Text = "-";
-            //    textBoxEmail.Text = "-";
-            //    textBoxPhone.Text = "-";
-            //}
-
+                 
             //var genders = (Owner as Form1).GetGendersList();
             List<Gender> genders = (Owner as ClientForm).genders;
             foreach (var item in genders)
@@ -54,7 +41,7 @@ namespace Barbers
 
                 foreach (Gender item in comboBoxGender.Items)
                 {
-                    if(item.Id == client.GenderId)
+                    if (item.Id == client.GenderId)
                     {
                         comboBoxGender.SelectedItem = item;
                     }
@@ -71,23 +58,42 @@ namespace Barbers
 
         private void AddClient()
         {
+
             //Валидация данных - проверка корректности
+            string regexName = @"([А-ЩЁЭ-Я][а-яё]+[\-\s]?){3,}";
             string Name = textBoxFIO.Text;
             if (Name.Equals(string.Empty))
             {
-                MessageBox.Show("Имя не может быть пустым");
+                MessageBox.Show("Имя не может быть пустым", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string Email = textBoxEmail.Text;
-            if (Email.Equals(string.Empty))
+            if(!Regex.IsMatch(Name, regexName))
             {
-                MessageBox.Show("Email не может быть пустым");
+                MessageBox.Show("Имя введено не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+            string regexPhone = @"^[0][1-9]{2}[0-9]{7}";
             string Phone = textBoxPhone.Text;
             if (Phone.Equals(string.Empty))
             {
-                MessageBox.Show("Телефон не может быть пустым");
+                MessageBox.Show("Номер телефона не может быть пустым", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(Phone, regexPhone))
+            {
+                MessageBox.Show("Номер телефона введен не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string regexEmail = @"[a-zA-Z0-9\-\._]+@[a-z0-9]+(.[a-z0-9]+){1,}";
+            string Email = textBoxEmail.Text;
+            if (Email.Equals(string.Empty))
+            {
+                MessageBox.Show("Email не может быть пустым", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(Email, regexEmail))
+            {
+                MessageBox.Show("Email введено не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             String GenderId;
@@ -108,7 +114,7 @@ namespace Barbers
             try
             {
                 new SqlCommand(query, (Owner as ClientForm).con).ExecuteNonQuery();
-                MessageBox.Show("INSERT CLIENT", "Message");
+                MessageBox.Show("INSERT CLIENT", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 isDataChanged = true;
 
@@ -119,37 +125,83 @@ namespace Barbers
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void EditClient()
         {
-            //Client c = new Client();
-            //c.Id = client.Id;
-            //c.Name = textBoxFIO.Text;
-            //c.Email = textBoxEmail.Text;
-            //c.Phone = textBoxPhone.Text;
-            //c.GenderDescription = comboBoxGender.SelectedItem == null ? null : comboBoxGender.SelectedItem.ToString();
-            //c.GenderId = comboBoxGender.SelectedIndex + 1;
-            //var con = (Owner as ClientForm).con;
-            //var cmd = new SqlCommand(@"UPDATE Clients 
-            //                           SET name = @Name, email = @Email, phone = @Phone, id_gender = @GenderId 
-            //                           WHERE id = @Id", con);
-            //cmd.Parameters.AddWithValue("@Name", c.Name);
-            //cmd.Parameters.AddWithValue("@Email", c.Email);
-            //cmd.Parameters.AddWithValue("@Phone", c.Phone);
-            //cmd.Parameters.AddWithValue("@GenderId", c.GenderId);
-            //cmd.Parameters.AddWithValue("@Id", c.Id);
-            //try
-            //{
-            //    cmd.ExecuteNonQuery();
-            //    MessageBox.Show("SAVED CLIENT", "Message");
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            //Валидация данных - проверка корректности
+            string regexName = @"([А-ЩЁЭ-Я][а-яё]+[\-\s]?){3,}";
+            string Name = textBoxFIO.Text;
+            if (Name.Equals(string.Empty))
+            {
+                MessageBox.Show("Имя не может быть пустым", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(Name, regexName))
+            {
+                MessageBox.Show("Имя введено не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string regexPhone = @"^[0][1-9]{2}[0-9]{7}";
+            string Phone = textBoxPhone.Text;
+            if (Phone.Equals(string.Empty))
+            {
+                MessageBox.Show("Номер телефона не может быть пустым", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(Phone, regexPhone))
+            {
+                MessageBox.Show("Номер телефона введен не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            string regexEmail = @"[a-zA-Z0-9\-\._]+@[a-z0-9]+(.[a-z0-9]+){1,}";
+            string Email = textBoxEmail.Text;
+            if (Email.Equals(string.Empty))
+            {
+                MessageBox.Show("Email не может быть пустым", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (!Regex.IsMatch(Email, regexEmail))
+            {
+                MessageBox.Show("Email введено не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            String GenderId;
+            if (comboBoxGender.SelectedIndex >= 0)
+            {
+                GenderId = ((Gender)comboBoxGender.Items[comboBoxGender.SelectedIndex]).Id.ToString();
+            }
+            else
+            {
+                GenderId = "null";
+            }
+            var con = (Owner as ClientForm).con;
+            var cmd = new SqlCommand(@"UPDATE Clients 
+                                       SET name = @Name, email = @Email, phone = @Phone, id_gender = @GenderId
+                                       WHERE id = @Id", con);
+            cmd.Parameters.AddWithValue("@Name", Name);
+            cmd.Parameters.AddWithValue("@Email", Email);
+            cmd.Parameters.AddWithValue("@Phone", Phone);
+            cmd.Parameters.AddWithValue("@GenderId", GenderId);
+            cmd.Parameters.AddWithValue("@Id", client.Id);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("EDIT CLIENT", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                isDataChanged = true;
+
+                client.Name = Name;
+                client.Email = Email;
+                client.Phone = Phone;
+                client.GenderId = (GenderId == "null")? 0: Convert.ToInt32(GenderId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

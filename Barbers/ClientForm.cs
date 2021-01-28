@@ -63,7 +63,7 @@ namespace Barbers
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Close();
             }
             //Отображаем на форме данные о размере коллекции
@@ -115,6 +115,7 @@ namespace Barbers
             {
                 showClientIndex += 1;
                 ShowClient();
+                buttonLast.Enabled = true;
             }
             else
             {
@@ -130,6 +131,7 @@ namespace Barbers
             {
                 showClientIndex -= 1;
                 ShowClient();
+                buttonNext.Enabled = true;
             }
             else
             {
@@ -148,10 +150,12 @@ namespace Barbers
         {
             ClientEditForm clientEditForm = new ClientEditForm();
             clientEditForm.Action = DBActions.Edit;
-            clientEditForm.ShowDialog(this);
             clientEditForm.client = Clients[showClientIndex];
+            clientEditForm.ShowDialog(this);
             if (clientEditForm.isDataChanged)
                 Clients[showClientIndex] = clientEditForm.client;
+
+
         }
 
         private void buttonAdd_Click(object sender, EventArgs e)
