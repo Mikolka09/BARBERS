@@ -29,6 +29,7 @@ namespace Barbers
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.labelPhone = new System.Windows.Forms.Label();
@@ -40,6 +41,7 @@ namespace Barbers
             this.comboBoxGender = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // label2
@@ -113,6 +115,7 @@ namespace Barbers
             // 
             // comboBoxGender
             // 
+            this.comboBoxGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxGender.FormattingEnabled = true;
             this.comboBoxGender.Location = new System.Drawing.Point(119, 148);
             this.comboBoxGender.Name = "comboBoxGender";
@@ -122,7 +125,7 @@ namespace Barbers
             // buttonSave
             // 
             this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSave.Location = new System.Drawing.Point(29, 206);
+            this.buttonSave.Location = new System.Drawing.Point(107, 265);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(76, 31);
             this.buttonSave.TabIndex = 21;
@@ -133,7 +136,7 @@ namespace Barbers
             // buttonCancel
             // 
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancel.Location = new System.Drawing.Point(29, 262);
+            this.buttonCancel.Location = new System.Drawing.Point(253, 265);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(76, 31);
             this.buttonCancel.TabIndex = 22;
@@ -145,7 +148,7 @@ namespace Barbers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(557, 367);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.comboBoxGender);
@@ -177,5 +180,6 @@ namespace Barbers
         private System.Windows.Forms.ComboBox comboBoxGender;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

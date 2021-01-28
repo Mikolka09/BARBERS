@@ -17,6 +17,11 @@ namespace Barbers
         public SqlConnection connection;
         public List<Gender> Genders;
 
+        public List<Gender> GetGendersList()
+        {
+            return Genders;
+        }
+
         public Gender GetGenderById(int id)
         {
             foreach (var item in Genders)
@@ -100,6 +105,11 @@ namespace Barbers
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
 }

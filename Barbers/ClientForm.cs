@@ -30,19 +30,21 @@ namespace Barbers
         public ClientForm()
         {
             InitializeComponent();
+
+            Clients = new List<Client>();
         }
 
-        private void ClientForm_Load(object sender, EventArgs e)
+        private void LoadClientFromDB()
         {
             genders = (Owner as Form1).Genders;
-            Clients = new List<Client>();
             //ORM part 3 - заполнение коллекции
             con = (Owner as Form1).connection;
-            //var cmd = new SqlCommand("SELECT id, name, phone, email, id_gender FROM Clients", con);
-            var cmd = new SqlCommand("SELECT C.id, C.name, C.phone, C.email, C.id_gender, G.description FROM Clients C LEFT JOIN Gender G ON C.id_gender = G.id", con);
+            var cmd = new SqlCommand("SELECT id, name, phone, email, id_gender FROM Clients", con);
+            //var cmd = new SqlCommand("SELECT C.id, C.name, C.phone, C.email, C.id_gender, G.description FROM Clients C LEFT JOIN Gender G ON C.id_gender = G.id", con);
             try
             {
                 SqlDataReader reader = cmd.ExecuteReader();
+                Clients.Clear();
                 while (reader.Read())
                 {
                     Clients.Add(
@@ -53,7 +55,7 @@ namespace Barbers
                             Phone = reader.GetString(2),
                             Email = reader.GetString(3),
                             GenderId = reader.GetValue(4) as int?,
-                            GenderDescription = reader.GetValue(5) as string
+                            //GenderDescription = reader.GetValue(5) as string
                         }
                     );
                 }
@@ -67,7 +69,13 @@ namespace Barbers
             //Отображаем на форме данные о размере коллекции
             int n = Clients.Count;
             labelClientsCnt.Text = n.ToString();
-            if (n > 0) //если коллекция не пуста - отображаем первого клиента
+        }
+
+        private void ClientForm_Load(object sender, EventArgs e)
+        {
+            LoadClientFromDB();
+
+            if (Clients.Count > 0) //если коллекция не пуста - отображаем первого клиента
             {
                 showClientIndex = 0;
                 ShowClient();
@@ -138,9 +146,21 @@ namespace Barbers
 
         private void buttonEdit_Click(object sender, EventArgs e)
         {
-            Close();
             ClientEditForm clientEditForm = new ClientEditForm();
+            clientEditForm.Action = DBActions.Edit;
             clientEditForm.ShowDialog(this);
+            clientEditForm.client = Clients[showClientIndex];
+            if (clientEditForm.isDataChanged)
+                Clients[showClientIndex] = clientEditForm.client;
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            ClientEditForm clientEditForm = new ClientEditForm();
+            clientEditForm.Action = DBActions.Add;
+            clientEditForm.ShowDialog(this);
+            if (clientEditForm.isDataChanged)
+                LoadClientFromDB();
         }
     }
 
@@ -151,7 +171,7 @@ namespace Barbers
         public string Phone { get; set; }
         public string Email { get; set; }
         public int? GenderId { get; set; }
-        public string GenderDescription { get; set; }
+        //public string GenderDescription { get; set; }
 
     }
 
