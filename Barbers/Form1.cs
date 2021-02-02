@@ -98,6 +98,12 @@ namespace Barbers
             ClientForm clientForm = new ClientForm();
             clientForm.ShowDialog(this);
         }
+
+        private void buttonLINQ_Click(object sender, EventArgs e)
+        {
+            JournalForm journal = new JournalForm();
+            journal.ShowDialog(this);
+        }
     }
 
     public class Gender //ORM

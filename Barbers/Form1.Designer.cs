@@ -33,6 +33,7 @@ namespace Barbers
             this.buttonBarbers = new System.Windows.Forms.Button();
             this.buttonClients = new System.Windows.Forms.Button();
             this.buttonClient = new System.Windows.Forms.Button();
+            this.buttonLINQ = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonGender
@@ -79,11 +80,23 @@ namespace Barbers
             this.buttonClient.UseVisualStyleBackColor = true;
             this.buttonClient.Click += new System.EventHandler(this.buttonClient_Click);
             // 
+            // buttonLINQ
+            // 
+            this.buttonLINQ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonLINQ.Location = new System.Drawing.Point(627, 42);
+            this.buttonLINQ.Name = "buttonLINQ";
+            this.buttonLINQ.Size = new System.Drawing.Size(102, 43);
+            this.buttonLINQ.TabIndex = 4;
+            this.buttonLINQ.Text = "LINQ";
+            this.buttonLINQ.UseVisualStyleBackColor = true;
+            this.buttonLINQ.Click += new System.EventHandler(this.buttonLINQ_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(618, 173);
+            this.ClientSize = new System.Drawing.Size(747, 173);
+            this.Controls.Add(this.buttonLINQ);
             this.Controls.Add(this.buttonClient);
             this.Controls.Add(this.buttonClients);
             this.Controls.Add(this.buttonBarbers);
@@ -101,6 +114,7 @@ namespace Barbers
         private System.Windows.Forms.Button buttonBarbers;
         private System.Windows.Forms.Button buttonClients;
         private System.Windows.Forms.Button buttonClient;
+        private System.Windows.Forms.Button buttonLINQ;
     }
 }
 

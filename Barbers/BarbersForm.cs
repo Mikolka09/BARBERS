@@ -46,7 +46,7 @@ namespace Barbers
             try
             {
                 adapter.Update(dataSet);
-                MessageBox.Show("Saved", "Message");
+                MessageBox.Show("Barber SAVED", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

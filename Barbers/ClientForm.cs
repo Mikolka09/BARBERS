@@ -166,6 +166,23 @@ namespace Barbers
             if (clientEditForm.isDataChanged)
                 LoadClientFromDB();
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            Client c = Clients[showClientIndex];
+            var cmd = new SqlCommand (@"DELETE Clients WHERE id = @id", (Owner as Form1).connection);
+            cmd.Parameters.AddWithValue("@id", c.Id);
+            try
+            {
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("CLIENT DELETED", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            LoadClientFromDB();
+        }
     }
 
     public class Client //класс системы ORM - отображение (mapping) таблицы Clients

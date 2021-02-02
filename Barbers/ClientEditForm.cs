@@ -29,6 +29,7 @@ namespace Barbers
                  
             //var genders = (Owner as Form1).GetGendersList();
             List<Gender> genders = (Owner as ClientForm).genders;
+            //List<Gender> genders = (Owner.Owner as Form1).Genders;
             foreach (var item in genders)
             {
                 comboBoxGender.Items.Add(item);
