@@ -30,27 +30,88 @@ namespace Barbers
                     .ConnectionStrings["DB"].ConnectionString
                 );
 
-            var query4 = from c in barberShop.Clients
-                         join g in barberShop.Genders on c.GenderId equals g.Id
-                         select new {Name = c.Name, Phone = c.Phone, Email = c.Email, Gender = g.Name};
+            //var query4 = from c in barberShop.Clients
+            //             join g in barberShop.Genders on c.GenderId equals g.Id
+            //             select new {Name = c.Name, Phone = c.Phone, Email = c.Email, Gender = g.Name};
 
-            var query = from client in barberShop.Clients
-                        select client;
-            var query2 = from gender in barberShop.Genders
-                         select gender;
-            var query3 = from barber in barberShop.Barbers
-                         select barber;
-            string str = "Genders - " + query2.Count() + "\n" +
-                         "Clients - " + query.Count() + "\n" +
-                         "Barbers - " + query3.Count() + "\n";
-            string str2 = str + "\n";
-            foreach (var item in query4)
-            {
-                str2 += item.Name + " " + item.Phone +  " " + item.Email + " " + item.Gender + "\n";
-            }
+            //var query = from client in barberShop.Clients
+            //            select client;
+            //var query2 = from gender in barberShop.Genders
+            //             select gender;
+            //var query3 = from barber in barberShop.Barbers
+            //             select barber;
+            //string str = "Genders - " + query2.Count() + "\n" +
+            //             "Clients - " + query.Count() + "\n" +
+            //             "Barbers - " + query3.Count() + "\n";
+            //string str2 = str + "\n";
+            //foreach (var item in query4)
+            //{
+            //    str2 += item.Name + " " + item.Phone +  " " + item.Email + " " + item.Gender + "\n";
+            //}
             //MessageBox.Show(str, "Count", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            MessageBox.Show(str2, "MESSAGE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show(str2, "MESSAGE", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            //Получение результата запроса ввиде коллекции (массива/словаря)
+            //var query4 = from c in barberShop.Clients
+            //             where c.Id < 10
+            //             select c;
+            //var list = query4.ToList();
+            //MessageBox.Show(list.Count.ToString());
+
+            var query5 = from c in barberShop.Clients
+                         join g in barberShop.Genders on c.GenderId equals g.Id
+                         where c.Id < 10 && g.Id < 100
+                         orderby c.Name descending
+                         //select new { Name = c.Name, Gender = g.Name }; //Анонимные классы
+                         select new Mixed() { Name = c.Name, Gender = g.Name }; //Именнованные классы
+            StringBuilder sb = new StringBuilder();
+            foreach (var obj in query5)
+            {
+                sb.Append(obj.Name);
+                sb.Append(' ');
+                sb.Append(obj.Gender);
+                sb.Append('\n');
+            }
+            //MessageBox.Show(sb.ToString());
+
+            //Текучий (Fluent) интерфейс / Method-based linq
+            //-подход организации ООП при котором методы объектов возвращают 
+            //указатель на "себя" - на измененный объект
+            //Подход противопоставляется возврату новых объектов в которые внесены изменения:
+            //str = str.Replace(a,b) <-> str.Replace(a,b)
+            //Наиболее популярное применение - для объктов с множественнными настройками
+            //cell = new Cell.setValue(10).setColor(blue).setBorder(..)
+
+            var query6 = barberShop.Clients.Where(c => c.Id <10).Where(r => r.Name.Length < 25);
+            var list = query6.ToList();    
+            //MessageBox.Show(list.Count.ToString());
+
+            sb.Clear();
+            foreach (var item in barberShop.Clients)
+            {
+                sb.Append(item.Name + " ");
+                try 
+                    { 
+                sb.Append(barberShop.Genders.Where(g => g.Id == item.GenderId).First().Name);
+                }
+                catch
+                {
+                    sb.Append('-');
+                
+                }
+
+                //sb.Append(barberShop.Genders.Where(g => g.Id == item.GenderId).FirstOrDefault()?.Name ?? "-"); //без исключений
+
+                sb.Append('\n');
+            }
+            MessageBox.Show(sb.ToString());
         }
+    }
+
+    class Mixed // Класс для смешенной выборки при соединении коллекции
+    {
+        public string Name { get; set; }
+        public string Gender { get; set; }
     }
 
     [Table(Name ="Clients")]
