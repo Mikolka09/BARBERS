@@ -28,12 +28,12 @@ namespace Barbers
             List<Control> toRemove = new List<Control>();
             foreach (Control c in this.Controls)
             {
-                if(c as Label != null)
-                if((c as Label).Tag != null)
-                {
-                    //Controls.Remove(c) - нельзя, коллекция изменена в цикле по коллекции
-                    toRemove.Add(c);
-                }
+                if (c as Label != null)
+                    if ((c as Label).Tag != null)
+                    {
+                        //Controls.Remove(c) - нельзя, коллекция изменена в цикле по коллекции
+                        toRemove.Add(c);
+                    }
             }
             foreach (Control c in toRemove)
             {
@@ -46,13 +46,13 @@ namespace Barbers
                       join C in barberShop.Clients on J.IdClient equals C.Id
                       select new { J, B, C };
 
-            int x = 10, y = 25;
+            int x = 10, y = 45;
             foreach (var j in jor)
             {
                 //создаем label
                 var lable = new Label()
                 {
-                    Text = j.C.Name + " - " + j.B.Name,
+                    Text = j.C.Name + "  -  " + j.B.Name,
                     Location = new Point(x, y),
                     AutoSize = true,
 
@@ -60,7 +60,7 @@ namespace Barbers
                 };
 
                 //обработчик событий
-                lable.Click += new EventHandler(labelClick);
+                lable.MouseDown += new MouseEventHandler(labelClick);
                 //смещение координат следуюшей label
                 y += 20;
                 //добавляем label на форму
@@ -94,9 +94,31 @@ namespace Barbers
         }
 
         //событие клик на label
-        private void labelClick(object sender, EventArgs e)
+        private void labelClick(object sender, MouseEventArgs e)
         {
-            MessageBox.Show((sender as Label).Tag.ToString(), "MOMENT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (e.Button == MouseButtons.Left)
+                MessageBox.Show((sender as Label).Tag.ToString(), 
+                    "MOMENT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //Удаление записи из журнала
+            if (e.Button == MouseButtons.Right)
+            {
+                DateTime momentLabel = (DateTime)(sender as Label).Tag;
+                if (MessageBox.Show("Вы точно желаете удалить эту запись?", 
+                    "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    foreach (var c in barberShop.Journal)
+                    {
+                        if(c.Moment == momentLabel)
+                        {
+                            barberShop.Journal.DeleteOnSubmit(c);
+                        }
+                    }
+                    barberShop.SubmitChanges();
+                    showJournal();
+                    MessageBox.Show("Запись УДАЛЕНА!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+
         }
 
         private void JournalForm_Load2(object sender, EventArgs e) //Набор упражнений - не активно
@@ -268,7 +290,9 @@ namespace Barbers
                   }
                 );
             barberShop.SubmitChanges();
-            MessageBox.Show(barberId + " - " + clientId + "  " + moment);
+            MessageBox.Show("Запись ДОБАВЛЕНА!", "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            comboBoxBarber.SelectedIndex = -1;
+            comboBoxClient.SelectedIndex = -1;
             showJournal();
         }
     }
