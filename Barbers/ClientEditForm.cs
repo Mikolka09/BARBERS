@@ -73,7 +73,7 @@ namespace Barbers
                 MessageBox.Show("Имя введено не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string regexPhone = @"^[0][1-9]{2}[0-9]{7}";
+            string regexPhone = @"^[0][1-9]{1}[0-9]{1}[0-9]{7}";
             string Phone = textBoxPhone.Text;
             if (Phone.Equals(string.Empty))
             {
@@ -145,7 +145,7 @@ namespace Barbers
                 MessageBox.Show("Имя введено не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            string regexPhone = @"^[0][1-9]{2}[0-9]{7}";
+            string regexPhone = @"^[0][1-9]{1}[0-9]{1}[0-9]{7}";
             string Phone = textBoxPhone.Text;
             if (Phone.Equals(string.Empty))
             {

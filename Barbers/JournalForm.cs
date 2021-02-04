@@ -82,27 +82,71 @@ namespace Barbers
             //Наиболее популярное применение - для объктов с множественнными настройками
             //cell = new Cell.setValue(10).setColor(blue).setBorder(..)
 
-            var query6 = barberShop.Clients.Where(c => c.Id <10).Where(r => r.Name.Length < 25);
-            var list = query6.ToList();    
+            var query6 = barberShop.Clients.Where(c => c.Id < 10).Where(r => r.Name.Length < 25);
+            var list = query6.ToList();
             //MessageBox.Show(list.Count.ToString());
 
             sb.Clear();
             foreach (var item in barberShop.Clients)
             {
                 sb.Append(item.Name + " ");
-                try 
-                    { 
-                sb.Append(barberShop.Genders.Where(g => g.Id == item.GenderId).First().Name);
+                try
+                {
+                    sb.Append(barberShop.Genders.Where(g => g.Id == item.GenderId).First().Name);
                 }
                 catch
                 {
                     sb.Append('-');
-                
+
                 }
 
                 //sb.Append(barberShop.Genders.Where(g => g.Id == item.GenderId).FirstOrDefault()?.Name ?? "-"); //без исключений
 
                 sb.Append('\n');
+            }
+            //MessageBox.Show(sb.ToString());
+
+            //Найти клиентов без указанного гендера
+            var q = from c in barberShop.Clients
+                    join g in barberShop.Genders on c.GenderId equals g.Id into temp
+                    from t in temp.DefaultIfEmpty()
+                    where t == null
+                    select new Mixed() { Name = c.Name, Gender = t.Name };
+            sb.Clear();
+            foreach (var item in q)
+            {
+                sb.Append(item.Name + " ");
+                sb.Append("--" + "\n");
+            }
+            //MessageBox.Show(sb.ToString());
+
+            //Найти клиентов с гендером и ФИО, длиннее 25 символов
+            sb.Clear();
+
+            foreach (var item in barberShop.Clients)
+            {
+                sb.Append(barberShop.Clients
+                    .Where(c => c.Name.Length > 25)
+                    .Where(r => r.GenderId != null)
+                    .Select(c => c.Name));
+                sb.Append("\n");
+            }
+
+            //MessageBox.Show(sb.ToString());
+
+            //Написать Method-based запрос на объединение таблиц Клиент и Гендер
+            sb.Clear();
+            var result = barberShop.Clients.Join(barberShop.Genders,
+                    c => c.GenderId,
+                    g => g.Id,
+                    (x, y) => new 
+                    { Name = x.Name, Gender = y.Name }); 
+                
+            foreach (var item in result)
+            {
+                sb.Append(item.Name + " ");
+                sb.Append(item.Gender);
+                sb.Append("\n");
             }
             MessageBox.Show(sb.ToString());
         }
@@ -114,12 +158,12 @@ namespace Barbers
         public string Gender { get; set; }
     }
 
-    [Table(Name ="Clients")]
+    [Table(Name = "Clients")]
     public class ClientL //класс системы ORM - отображение (mapping) таблицы Clients
     {
-        [Column(IsPrimaryKey =true, IsDbGenerated =true)]
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
-        [Column(Name ="name")]
+        [Column(Name = "name")]
         public string Name { get; set; }
         [Column(Name = "phone")]
         public string Phone { get; set; }
@@ -127,7 +171,7 @@ namespace Barbers
         public string Email { get; set; }
         [Column(Name = "id_gender")]
         public int? GenderId { get; set; }
-   
+
     }
 
     [Table(Name = "Barbers")]
@@ -143,14 +187,14 @@ namespace Barbers
         public string Birthday { get; set; }
         [Column(Name = "dt_work")]
         public string Work { get; set; }
-        
+
     }
 
     //GenderL
-    [Table(Name ="Gender")]
+    [Table(Name = "Gender")]
     public class GenderL //ORM
     {
-        [Column(IsPrimaryKey =true, IsDbGenerated =true)]
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
         public int Id { get; set; }
         [Column(Name = "name")]
         public string Name { get; set; }
@@ -163,7 +207,7 @@ namespace Barbers
         }
     }
 
-    class BarberShop: DataContext
+    class BarberShop : DataContext
     {
         public Table<ClientL> Clients; //ORM 2 - коллекция
         //GenderL
@@ -172,7 +216,7 @@ namespace Barbers
         public Table<BarbersL> Barbers;
 
         //Конструктор контекста принимает строку подключения
-        public BarberShop(string conStr): base (conStr)
+        public BarberShop(string conStr) : base(conStr)
         {
             Clients = GetTable<ClientL>();
             //GenderL
