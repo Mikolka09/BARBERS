@@ -123,12 +123,14 @@ namespace Barbers
             //Найти клиентов с гендером и ФИО, длиннее 25 символов
             sb.Clear();
 
-            foreach (var item in barberShop.Clients)
+            var res = barberShop.Clients
+                .Where(c => c.Name.Length > 25)
+                .Where(c => c.GenderId != null)
+                .Select(c => c.Name).ToList();
+
+            foreach (var item in res)
             {
-                sb.Append(barberShop.Clients
-                    .Where(c => c.Name.Length > 25)
-                    .Where(r => r.GenderId != null)
-                    .Select(c => c.Name));
+                sb.Append(item);
                 sb.Append("\n");
             }
 
@@ -136,14 +138,20 @@ namespace Barbers
 
             //Написать Method-based запрос на объединение таблиц Клиент и Гендер
             sb.Clear();
-            var result = barberShop.Clients.Join(barberShop.Genders,
+
+            var result = barberShop.Clients.GroupJoin(barberShop.Genders,
                     c => c.GenderId,
                     g => g.Id,
-                    (x, y) => new 
-                    { Name = x.Name, Gender = y.Name }); 
-                
+                    (x, y) => new { x, y}
+                    ).SelectMany
+                    (
+                        z => z.y.DefaultIfEmpty(),
+                        (z, g) => new { Name = z.x.Name, Gender = g.Name}
+                    );
+
             foreach (var item in result)
             {
+                //sb.Append(item);
                 sb.Append(item.Name + " ");
                 sb.Append(item.Gender);
                 sb.Append("\n");
