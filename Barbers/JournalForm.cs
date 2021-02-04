@@ -22,7 +22,84 @@ namespace Barbers
             InitializeComponent();
         }
 
+        private void showJournal()
+        {
+            //очистка - поиск по типу label, с не нулевым Tag
+            List<Control> toRemove = new List<Control>();
+            foreach (Control c in this.Controls)
+            {
+                if(c as Label != null)
+                if((c as Label).Tag != null)
+                {
+                    //Controls.Remove(c) - нельзя, коллекция изменена в цикле по коллекции
+                    toRemove.Add(c);
+                }
+            }
+            foreach (Control c in toRemove)
+            {
+                this.Controls.Remove(c);
+            }
+
+            //Создание запросов (запрос - query)
+            var jor = from J in barberShop.Journal
+                      join B in barberShop.Barbers on J.IdBarber equals B.Id
+                      join C in barberShop.Clients on J.IdClient equals C.Id
+                      select new { J, B, C };
+
+            int x = 10, y = 25;
+            foreach (var j in jor)
+            {
+                //создаем label
+                var lable = new Label()
+                {
+                    Text = j.C.Name + " - " + j.B.Name,
+                    Location = new Point(x, y),
+                    AutoSize = true,
+
+                    Tag = j.J.Moment //заначка (спрятали в label)
+                };
+
+                //обработчик событий
+                lable.Click += new EventHandler(labelClick);
+                //смещение координат следуюшей label
+                y += 20;
+                //добавляем label на форму
+                this.Controls.Add(lable);
+            }
+
+        }
+
+        private void InitRecord() //Загрузка Combobox - на запись
+        {
+            foreach (BarbersL b in barberShop.Barbers)
+            {
+                comboBoxBarber.Items.Add(b);
+            }
+            foreach (ClientL c in barberShop.Clients)
+            {
+                comboBoxClient.Items.Add(c);
+            }
+        }
+
         private void JournalForm_Load(object sender, EventArgs e)
+        {
+            //Создание объекта контекста
+            barberShop = new BarberShop(
+                    System.Configuration.ConfigurationManager
+                    .ConnectionStrings["DB"].ConnectionString
+                );
+
+            showJournal();
+            InitRecord();
+        }
+
+        //событие клик на label
+        private void labelClick(object sender, EventArgs e)
+        {
+            MessageBox.Show((sender as Label).Tag.ToString(), "MOMENT", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void JournalForm_Load2(object sender, EventArgs e) //Набор упражнений - не активно
         {
             //ORM 3 - instance of context (создаем)
             barberShop = new BarberShop(
@@ -142,11 +219,11 @@ namespace Barbers
             var result = barberShop.Clients.GroupJoin(barberShop.Genders,
                     c => c.GenderId,
                     g => g.Id,
-                    (x, y) => new { x, y}
+                    (x, y) => new { x, y }
                     ).SelectMany
                     (
                         z => z.y.DefaultIfEmpty(),
-                        (z, g) => new { Name = z.x.Name, Gender = g.Name}
+                        (z, g) => new { Name = z.x.Name, Gender = g.Name }
                     );
 
             foreach (var item in result)
@@ -156,7 +233,43 @@ namespace Barbers
                 sb.Append(item.Gender);
                 sb.Append("\n");
             }
-            MessageBox.Show(sb.ToString());
+            //MessageBox.Show(sb.ToString());
+        }
+
+        private void buttonAddRecord_Click(object sender, EventArgs e)
+        {
+            int barberId;
+            if (comboBoxBarber.SelectedIndex > -1)
+            {
+                barberId = (comboBoxBarber.SelectedItem as BarbersL).Id;
+            }
+            else
+            {
+                MessageBox.Show("Выберите Барбера!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            int clientId;
+            if (comboBoxClient.SelectedIndex > -1)
+            {
+                clientId = (comboBoxClient.SelectedItem as ClientL).Id;
+            }
+            else
+            {
+                MessageBox.Show("Выберите Клиента!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            DateTime moment = dateTimePicker1.Value;
+            barberShop.Journal.InsertOnSubmit(
+                  new Journal()
+                  {
+                      IdBarber = barberId,
+                      IdClient = clientId,
+                      Moment = moment
+                  }
+                );
+            barberShop.SubmitChanges();
+            MessageBox.Show(barberId + " - " + clientId + "  " + moment);
+            showJournal();
         }
     }
 
@@ -180,6 +293,11 @@ namespace Barbers
         [Column(Name = "id_gender")]
         public int? GenderId { get; set; }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
     }
 
     [Table(Name = "Barbers")]
@@ -192,10 +310,14 @@ namespace Barbers
         [Column(Name = "id_gender")]
         public int? GenderId { get; set; }
         [Column(Name = "dt_birthday")]
-        public string Birthday { get; set; }
+        public DateTime BirthDay { get; set; }
         [Column(Name = "dt_work")]
-        public string Work { get; set; }
+        public DateTime WorkDay { get; set; }
 
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 
     //GenderL
@@ -222,6 +344,7 @@ namespace Barbers
         public Table<GenderL> Genders;
         //BarbersL
         public Table<BarbersL> Barbers;
+        public Table<Journal> Journal;
 
         //Конструктор контекста принимает строку подключения
         public BarberShop(string conStr) : base(conStr)
@@ -231,9 +354,22 @@ namespace Barbers
             Genders = GetTable<GenderL>();
             //BarbersL
             Barbers = GetTable<BarbersL>();
+            Journal = GetTable<Journal>();
         }
     }
 
+    [Table(Name = "Journal")]
+    public class Journal
+    {
+        [Column(IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id { get; set; }
+        [Column(Name = "id_client")]
+        public int IdClient { get; set; }
+        [Column(Name = "id_barber")]
+        public int IdBarber { get; set; }
+        [Column(Name = "moment")]
+        public DateTime Moment { get; set; }
+    }
 }
 
 //LINQ - Language Integrated Queris (запросы, интегрированные в язык)
@@ -243,3 +379,11 @@ namespace Barbers
 // 2. Контекст (DataContext) - объект взаимодействия (~ Adapter)
 //      вместо коллекции List<> приминяется коллекция Table<>
 // 3. Реализация (инстанциация) 
+
+//Создание журнала
+//1. [Data First] - создаем таблицу в БД, вносим несколько запесей
+//2. ORM 
+//2.1 Класс class Journal
+//2.2 Создаем атрибуты
+//2.3 Добавляем в коллукцию Контекст
+//3. Реализация - создание объекта контекста, запросы и их обработка
