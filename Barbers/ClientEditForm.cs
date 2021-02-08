@@ -26,7 +26,7 @@ namespace Barbers
 
         private void ClientEditForm_Load(object sender, EventArgs e)
         {
-                 
+
             //var genders = (Owner as Form1).GetGendersList();
             List<Gender> genders = (Owner as ClientForm).genders;
             //List<Gender> genders = (Owner.Owner as Form1).Genders;
@@ -49,7 +49,6 @@ namespace Barbers
                 }
             }
 
-
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -68,7 +67,7 @@ namespace Barbers
                 MessageBox.Show("Имя не может быть пустым", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if(!Regex.IsMatch(Name, regexName))
+            if (!Regex.IsMatch(Name, regexName))
             {
                 MessageBox.Show("Имя введено не правильно", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -197,7 +196,7 @@ namespace Barbers
                 client.Name = Name;
                 client.Email = Email;
                 client.Phone = Phone;
-                client.GenderId = (GenderId == "null")? 0: Convert.ToInt32(GenderId);
+                client.GenderId = (GenderId == "null") ? 0 : Convert.ToInt32(GenderId);
             }
             catch (Exception ex)
             {
@@ -218,9 +217,10 @@ namespace Barbers
                 default:
                     break;
             }
-                     
+
 
         }
+
     }
 
     public enum DBActions

@@ -40,11 +40,14 @@ namespace Barbers
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.buttonExit = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.buttonExit);
             this.groupBox1.Controls.Add(this.dateTimePicker1);
             this.groupBox1.Controls.Add(this.comboBoxBarber);
             this.groupBox1.Controls.Add(this.comboBoxClient);
@@ -52,7 +55,7 @@ namespace Barbers
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.buttonAddRecord);
-            this.groupBox1.Location = new System.Drawing.Point(499, 12);
+            this.groupBox1.Location = new System.Drawing.Point(499, 32);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(394, 294);
             this.groupBox1.TabIndex = 0;
@@ -118,7 +121,7 @@ namespace Barbers
             // buttonAddRecord
             // 
             this.buttonAddRecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonAddRecord.Location = new System.Drawing.Point(252, 245);
+            this.buttonAddRecord.Location = new System.Drawing.Point(115, 244);
             this.buttonAddRecord.Name = "buttonAddRecord";
             this.buttonAddRecord.Size = new System.Drawing.Size(107, 31);
             this.buttonAddRecord.TabIndex = 0;
@@ -156,11 +159,33 @@ namespace Barbers
             this.label6.TabIndex = 3;
             this.label6.Text = "Барбер";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label7.Location = new System.Drawing.Point(611, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(198, 18);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "ДОБАВЛЕНИЕ ЗАПИСИ";
+            // 
+            // buttonExit
+            // 
+            this.buttonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonExit.Location = new System.Drawing.Point(264, 244);
+            this.buttonExit.Name = "buttonExit";
+            this.buttonExit.Size = new System.Drawing.Size(95, 31);
+            this.buttonExit.TabIndex = 7;
+            this.buttonExit.Text = "Выход";
+            this.buttonExit.UseVisualStyleBackColor = true;
+            this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
+            // 
             // JournalForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(905, 334);
+            this.ClientSize = new System.Drawing.Size(905, 343);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -188,5 +213,7 @@ namespace Barbers
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonExit;
     }
 }

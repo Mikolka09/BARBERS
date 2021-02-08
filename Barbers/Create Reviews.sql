@@ -1,0 +1,7 @@
+﻿CREATE TABLE Reviews(
+	id INT NOT NULL PRIMARY KEY IDENTITY (1,1),
+	id_client INT NOT NULL,
+	id_barber INT NOT NULL,
+	rating NVARCHAR(15) NOT NULL,
+	review NVARCHAR(MAX) NOT NULL
+)

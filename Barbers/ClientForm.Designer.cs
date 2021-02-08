@@ -50,6 +50,7 @@ namespace Barbers
             this.buttonEdit = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,16 +58,16 @@ namespace Barbers
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(26, 29);
+            this.label1.Location = new System.Drawing.Point(18, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(119, 17);
+            this.label1.Size = new System.Drawing.Size(212, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Клиентов в БД";
+            this.label1.Text = "Количество Клиентов в БД";
             // 
             // labelClientsCnt
             // 
             this.labelClientsCnt.AutoSize = true;
-            this.labelClientsCnt.Location = new System.Drawing.Point(164, 29);
+            this.labelClientsCnt.Location = new System.Drawing.Point(249, 47);
             this.labelClientsCnt.Name = "labelClientsCnt";
             this.labelClientsCnt.Size = new System.Drawing.Size(0, 17);
             this.labelClientsCnt.TabIndex = 1;
@@ -86,7 +87,7 @@ namespace Barbers
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.groupBox1.Location = new System.Drawing.Point(12, 83);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(351, 228);
+            this.groupBox1.Size = new System.Drawing.Size(387, 187);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Данные";
@@ -94,7 +95,7 @@ namespace Barbers
             // labelID
             // 
             this.labelID.AutoSize = true;
-            this.labelID.Location = new System.Drawing.Point(184, 198);
+            this.labelID.Location = new System.Drawing.Point(237, 160);
             this.labelID.Name = "labelID";
             this.labelID.Size = new System.Drawing.Size(0, 17);
             this.labelID.TabIndex = 5;
@@ -103,7 +104,7 @@ namespace Barbers
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(131, 198);
+            this.label10.Location = new System.Drawing.Point(149, 160);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(23, 17);
             this.label10.TabIndex = 6;
@@ -112,7 +113,7 @@ namespace Barbers
             // labelGender
             // 
             this.labelGender.AutoSize = true;
-            this.labelGender.Location = new System.Drawing.Point(80, 121);
+            this.labelGender.Location = new System.Drawing.Point(98, 121);
             this.labelGender.Name = "labelGender";
             this.labelGender.Size = new System.Drawing.Size(0, 17);
             this.labelGender.TabIndex = 10;
@@ -130,7 +131,7 @@ namespace Barbers
             // labelEmail
             // 
             this.labelEmail.AutoSize = true;
-            this.labelEmail.Location = new System.Drawing.Point(80, 92);
+            this.labelEmail.Location = new System.Drawing.Point(98, 92);
             this.labelEmail.Name = "labelEmail";
             this.labelEmail.Size = new System.Drawing.Size(0, 17);
             this.labelEmail.TabIndex = 9;
@@ -148,7 +149,7 @@ namespace Barbers
             // labelPhone
             // 
             this.labelPhone.AutoSize = true;
-            this.labelPhone.Location = new System.Drawing.Point(80, 64);
+            this.labelPhone.Location = new System.Drawing.Point(98, 64);
             this.labelPhone.Name = "labelPhone";
             this.labelPhone.Size = new System.Drawing.Size(0, 17);
             this.labelPhone.TabIndex = 8;
@@ -166,7 +167,7 @@ namespace Barbers
             // labelFIO
             // 
             this.labelFIO.AutoSize = true;
-            this.labelFIO.Location = new System.Drawing.Point(80, 37);
+            this.labelFIO.Location = new System.Drawing.Point(98, 37);
             this.labelFIO.Name = "labelFIO";
             this.labelFIO.Size = new System.Drawing.Size(0, 17);
             this.labelFIO.TabIndex = 7;
@@ -184,7 +185,7 @@ namespace Barbers
             // buttonClose
             // 
             this.buttonClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonClose.Location = new System.Drawing.Point(288, 426);
+            this.buttonClose.Location = new System.Drawing.Point(324, 379);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 32);
             this.buttonClose.TabIndex = 3;
@@ -195,7 +196,7 @@ namespace Barbers
             // buttonLast
             // 
             this.buttonLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonLast.Location = new System.Drawing.Point(70, 326);
+            this.buttonLast.Location = new System.Drawing.Point(81, 279);
             this.buttonLast.Name = "buttonLast";
             this.buttonLast.Size = new System.Drawing.Size(75, 23);
             this.buttonLast.TabIndex = 4;
@@ -206,7 +207,7 @@ namespace Barbers
             // buttonNext
             // 
             this.buttonNext.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonNext.Location = new System.Drawing.Point(211, 326);
+            this.buttonNext.Location = new System.Drawing.Point(259, 279);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(75, 23);
             this.buttonNext.TabIndex = 5;
@@ -217,7 +218,7 @@ namespace Barbers
             // buttonEdit
             // 
             this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonEdit.Location = new System.Drawing.Point(248, 368);
+            this.buttonEdit.Location = new System.Drawing.Point(287, 321);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(85, 32);
             this.buttonEdit.TabIndex = 6;
@@ -228,7 +229,7 @@ namespace Barbers
             // buttonDelete
             // 
             this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonDelete.Location = new System.Drawing.Point(146, 368);
+            this.buttonDelete.Location = new System.Drawing.Point(164, 321);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(85, 32);
             this.buttonDelete.TabIndex = 7;
@@ -239,7 +240,7 @@ namespace Barbers
             // buttonAdd
             // 
             this.buttonAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonAdd.Location = new System.Drawing.Point(29, 368);
+            this.buttonAdd.Location = new System.Drawing.Point(38, 321);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(85, 32);
             this.buttonAdd.TabIndex = 8;
@@ -247,11 +248,22 @@ namespace Barbers
             this.buttonAdd.UseVisualStyleBackColor = true;
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(9, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(387, 18);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "ДОБАВЛЕНИЕ И РЕДАКТИРОВАНИЕ КЛИЕНТА";
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 470);
+            this.ClientSize = new System.Drawing.Size(433, 426);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.buttonEdit);
@@ -293,5 +305,6 @@ namespace Barbers
         private System.Windows.Forms.Button buttonEdit;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAdd;
+        private System.Windows.Forms.Label label6;
     }
 }

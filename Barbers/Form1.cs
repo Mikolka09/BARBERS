@@ -104,6 +104,17 @@ namespace Barbers
             JournalForm journal = new JournalForm();
             journal.ShowDialog(this);
         }
+
+        private void buttonReviews_Click(object sender, EventArgs e)
+        {
+            ReviewsForm reviews = new ReviewsForm();
+            reviews.ShowDialog(this);
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 
     public class Gender //ORM

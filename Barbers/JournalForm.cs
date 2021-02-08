@@ -295,6 +295,11 @@ namespace Barbers
             comboBoxClient.SelectedIndex = -1;
             showJournal();
         }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 
     class Mixed // Класс для смешенной выборки при соединении коллекции
