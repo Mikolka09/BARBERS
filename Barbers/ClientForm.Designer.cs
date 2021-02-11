@@ -117,6 +117,7 @@ namespace Barbers
             this.labelGender.Name = "labelGender";
             this.labelGender.Size = new System.Drawing.Size(0, 17);
             this.labelGender.TabIndex = 10;
+            this.labelGender.Click += new System.EventHandler(this.labelGender_Click);
             // 
             // label2
             // 

@@ -48,7 +48,37 @@ namespace Barbers
                     }
                 }
             }
+            comboBoxGender.DrawMode = DrawMode.OwnerDrawFixed;
+            comboBoxGender.DrawItem += comboBoxGender_DrawItem;
+            comboBoxGender.DropDownClosed += comboBoxGender_DropDownClosed;
+        }
 
+        //Закрытие ToolTip при сворачивании comboBoxGender
+        private void comboBoxGender_DropDownClosed(object sender, EventArgs e)
+        {
+            toolTip1.Hide(comboBoxGender);
+        }
+
+        //Перересовка ToolTip при наведении курсора на Gender в comboBoxGender
+        private void comboBoxGender_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0)
+            {
+                return;
+            }
+            string hint = (comboBoxGender.Items[e.Index] as Gender).Description;
+            String text = (comboBoxGender.Items[e.Index] as Gender).Name;
+
+            e.DrawBackground();
+            using (SolidBrush br = new SolidBrush(e.ForeColor))
+            {
+                e.Graphics.DrawString(text, e.Font, br, e.Bounds);
+            }
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                toolTip1.Show(hint, comboBoxGender, e.Bounds.Right, e.Bounds.Bottom);
+            }
+            e.DrawFocusRectangle();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

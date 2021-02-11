@@ -115,6 +115,12 @@ namespace Barbers
         {
             Close();
         }
+
+        private void buttonFeedBack_Click(object sender, EventArgs e)
+        {
+            FeedBackForm feed = new FeedBackForm();
+            feed.ShowDialog(this);
+        }
     }
 
     public class Gender //ORM

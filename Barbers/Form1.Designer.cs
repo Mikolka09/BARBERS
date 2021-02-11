@@ -37,6 +37,7 @@ namespace Barbers
             this.buttonReviews = new System.Windows.Forms.Button();
             this.labelMenu = new System.Windows.Forms.Label();
             this.buttonExit = new System.Windows.Forms.Button();
+            this.buttonFeedBack = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonGender
@@ -127,11 +128,23 @@ namespace Barbers
             this.buttonExit.UseVisualStyleBackColor = false;
             this.buttonExit.Click += new System.EventHandler(this.buttonExit_Click);
             // 
+            // buttonFeedBack
+            // 
+            this.buttonFeedBack.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonFeedBack.Location = new System.Drawing.Point(91, 195);
+            this.buttonFeedBack.Name = "buttonFeedBack";
+            this.buttonFeedBack.Size = new System.Drawing.Size(100, 34);
+            this.buttonFeedBack.TabIndex = 8;
+            this.buttonFeedBack.Text = "FeedBack";
+            this.buttonFeedBack.UseVisualStyleBackColor = true;
+            this.buttonFeedBack.Click += new System.EventHandler(this.buttonFeedBack_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 241);
+            this.Controls.Add(this.buttonFeedBack);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.labelMenu);
             this.Controls.Add(this.buttonReviews);
@@ -158,6 +171,7 @@ namespace Barbers
         private System.Windows.Forms.Button buttonReviews;
         private System.Windows.Forms.Label labelMenu;
         private System.Windows.Forms.Button buttonExit;
+        private System.Windows.Forms.Button buttonFeedBack;
     }
 }
 

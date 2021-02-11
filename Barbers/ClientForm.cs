@@ -40,7 +40,8 @@ namespace Barbers
             //ORM part 3 - заполнение коллекции
             con = (Owner as Form1).connection;
             var cmd = new SqlCommand("SELECT id, name, phone, email, id_gender FROM Clients", con);
-            //var cmd = new SqlCommand("SELECT C.id, C.name, C.phone, C.email, C.id_gender, G.description FROM Clients C LEFT JOIN Gender G ON C.id_gender = G.id", con);
+            //var cmd = new SqlCommand("SELECT C.id, C.name, C.phone, C.email, C.id_gender, G.description 
+                                        //FROM Clients C LEFT JOIN Gender G ON C.id_gender = G.id", con);
             try
             {
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -182,6 +183,11 @@ namespace Barbers
                 MessageBox.Show(ex.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             LoadClientFromDB();
+        }
+
+        private void labelGender_Click(object sender, EventArgs e)
+        {
+           MessageBox.Show(toolTip1.GetToolTip(sender as Label), "Description", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 
