@@ -63,7 +63,7 @@ namespace Barbers
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(203, 9);
+            this.label1.Location = new System.Drawing.Point(379, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(180, 18);
             this.label1.TabIndex = 1;
@@ -83,9 +83,9 @@ namespace Barbers
             // 
             this.listBoxFeedback.FormattingEnabled = true;
             this.listBoxFeedback.ItemHeight = 16;
-            this.listBoxFeedback.Location = new System.Drawing.Point(248, 115);
+            this.listBoxFeedback.Location = new System.Drawing.Point(206, 115);
             this.listBoxFeedback.Name = "listBoxFeedback";
-            this.listBoxFeedback.Size = new System.Drawing.Size(634, 196);
+            this.listBoxFeedback.Size = new System.Drawing.Size(676, 196);
             this.listBoxFeedback.TabIndex = 6;
             // 
             // label3
@@ -206,7 +206,7 @@ namespace Barbers
             // 
             this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(802, 364);
+            this.button1.Location = new System.Drawing.Point(802, 330);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(80, 39);
             this.button1.TabIndex = 20;
@@ -218,7 +218,7 @@ namespace Barbers
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label10.Location = new System.Drawing.Point(510, 85);
+            this.label10.Location = new System.Drawing.Point(465, 86);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(110, 17);
             this.label10.TabIndex = 21;
@@ -228,7 +228,7 @@ namespace Barbers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(894, 450);
+            this.ClientSize = new System.Drawing.Size(894, 383);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.labelAVG);

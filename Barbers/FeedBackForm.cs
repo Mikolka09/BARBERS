@@ -39,15 +39,12 @@ namespace Barbers
                            where j.IdBarber == selectedbarber.Id
                            select new { f, j, c };
             listBoxFeedback.Items.Clear();
+            double five = 0, four = 0, free = 0, two = 0, one = 0, avg = 0, sum = 0;
+            int count = 0;
             foreach (var item in feedback)
             {
-                listBoxFeedback.Items.Add("Клиент - " + " " + item.c.Name + ", " + "Оценка - " + " "
-                                           + item.f.Rating + ", " + "Отзыв - " + " " + item.f.text);
-            }
-            double five = 0, four = 0, free = 0, two = 0, one = 0;
-            double avg = 0;
-            foreach (var item in feedback)
-            {
+                listBoxFeedback.Items.Add(item.j.Moment + ", " + "Клиент - " + " " + item.c.Name + ", " + "Оценка - " + " "
+                                           + item.f.Rating + ", " + "Отзыв - " + " " + ((item.f.text == null)? "Отзыва НЕТ": item.f.text));
                 switch (item.f.Rating)
                 {
                     case 5:
@@ -65,16 +62,21 @@ namespace Barbers
                     case 1:
                         one++;
                         break;
+                    default: break;
                 }
+                sum += item.f.Rating;
             }
+            count = feedback.Count();
+            avg = Math.Round(sum / count, 1);
             labelFive.Text = five.ToString();
             labelFour.Text = four.ToString();
             labelFree.Text = free.ToString();
             labelTwo.Text = two.ToString();
             labelOne.Text = one.ToString();
-            avg = (((5 * five) + (4 * four) + (3 * free) + (2 * two) + (1 * one)) 
-                                / (five + four + free + two + one));
-            labelAVG.Text = avg.ToString();
+            if (sum != 0)
+                labelAVG.Text = avg.ToString();
+            else
+                labelAVG.Text = "0";
         }
 
         private void button1_Click(object sender, EventArgs e)
